@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CivicTrack - Report Issue</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="home.html">
+                <i class="fas fa-city"></i> CivicTrack
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="home.html">
+                            <i class="fas fa-home"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="report.html">
+                            <i class="fas fa-plus-circle"></i> Report Issue
+                        </a>
+                    </li>
+                </ul>
+                
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-user"></i> <span id="currentUser">User</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-user-edit"></i> Profile</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="index.html"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-4">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <!-- Success Message -->
+                <div class="alert alert-success d-none" id="successMessage">
+                    <h5><i class="fas fa-check-circle"></i> Success!</h5>
+                    <p>Your issue has been reported successfully. Thank you for helping improve your community!</p>
+                    <p>Report ID: <span id="reportId">#001</span></p>
+                    <a href="home.html" class="btn btn-success">Return to Dashboard</a>
+                </div>
+
+                <!-- Error Message -->
+                <div class="alert alert-danger d-none" id="errorMessage">
+                    <h5><i class="fas fa-exclamation-triangle"></i> Please Fix the Following Errors:</h5>
+                    <ul id="errorList"></ul>
+                </div>
+
+                <div class="card shadow-lg">
+                    <div class="card-header bg-primary text-white">
+                        <h2 class="mb-0">
+                            <i class="fas fa-plus-circle"></i> Report a New Issue
+                        </h2>
+                    </div>
+                    
+                    <div class="card-body p-4">
+                        <form id="reportForm">
+                            <!-- Issue Information -->
+                            <div class="section-header">
+                                <h4><i class="fas fa-info-circle"></i> Issue Information</h4>
+                                <hr>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-12 mb-3">
+                                    <label for="title" class="form-label">
+                                        Issue Title <span class="text-danger">*</span>
+                                    </label>
+                                    <input type="text" class="form-control" id="title" name="title" 
+                                           placeholder="Brief description of the issue" required>
+                                    <div class="form-text">Provide a clear, concise title for the issue</div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="category" class="form-label">
+                                        Category <span class="text-danger">*</span>
+                                    </label>
+                                    <select class="form-select" id="category" name="category" required>
+                                        <option value="">Select a category...</option>
+                                        <option value="Roads & Transportation">Roads & Transportation</option>
+                                        <option value="Street Lighting">Street Lighting</option>
+                                        <option value="Water & Drainage">Water & Drainage</option>
+                                        <option value="Cleanliness & Waste">Cleanliness & Waste</option>
+                                        <option value="Parks & Recreation">Parks & Recreation</option>
+                                        <option value="Public Safety">Public Safety</option>
+                                        <option value="Utilities">Utilities</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="col-md-6 mb-3">
+                                    <label for="priority" class="form-label">Priority Level</label>
+                                    <select class="form-select" id="priority" name="priority">
+                                        <option value="Low">Low - Minor inconvenience</option>
+                                        <option value="Medium" selected>Medium - Moderate issue</option>
+                                        <option value="High">High - Safety concern or major problem</option>
+                                        <option value="Urgent">Urgent - Immediate danger</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="description" class="form-label">Detailed Description</label>
+                                <textarea class="form-control" id="description" name="description" rows="4"
+                                          placeholder="Optional - Additional context or details about the issue"></textarea>
+                            </div>
+                            
+                            <!-- Location Information -->
+                            <div class="section-header mt-4">
+                                <h4><i class="fas fa-map-marker-alt"></i> Location Information</h4>
+                                <hr>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-8 mb-3">
+                                    <label for="location" class="form-label">
+                                        Location <span class="text-danger">*</span>
+                                    </label>
+                                    <input type="text" class="form-control" id="location" name="location" 
+                                           placeholder="Where is this issue located?" required>
+                                    <div class="form-text">Be as specific as possible (e.g., "Corner of Main St and Oak Ave")</div>
+                                </div>
+                                
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">&nbsp;</label>
+                                    <button type="button" class="btn btn-outline-primary w-100" onclick="getCurrentLocationForForm()">
+                                        <i class="fas fa-location-arrow"></i> Use My Location
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- Media Upload -->
+                            <div class="section-header mt-4">
+                                <h4><i class="fas fa-camera"></i> Photo Documentation</h4>
+                                <hr>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="image_url" class="form-label">Photo URL</label>
+                                    <input type="url" class="form-control" id="image_url" name="image_url" 
+                                           placeholder="Paste a link to an image of the issue">
+                                    <div class="form-text">Link to an existing image online</div>
+                                </div>
+                                
+                                <div class="col-md-6 mb-3">
+                                    <label for="file_upload" class="form-label">Upload Photo</label>
+                                    <input type="file" class="form-control" id="file_upload" accept="image/*">
+                                    <div class="form-text">Upload an image from your device</div>
+                                </div>
+                            </div>
+
+                            <!-- Image Preview -->
+                            <div class="mb-3" id="imagePreviewContainer" style="display: none;">
+                                <img id="imagePreview" src="" alt="Preview" class="img-fluid rounded shadow" style="max-height: 300px;">
+                            </div>
+                            
+                            <!-- Contact Information -->
+                            <div class="section-header mt-4">
+                                <h4><i class="fas fa-user"></i> Contact Information</h4>
+                                <hr>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="anonymous" name="anonymous">
+                                    <label class="form-check-label" for="anonymous">
+                                        Submit this report anonymously
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div id="contactInfo">
+                                <div class="row">
+                                    <div class="col-md-4 mb-3">
+                                        <label for="contact_name" class="form-label">Your Name</label>
+                                        <input type="text" class="form-control" id="contact_name" name="contact_name">
+                                    </div>
+                                    
+                                    <div class="col-md-4 mb-3">
+                                        <label for="contact_email" class="form-label">Email Address</label>
+                                        <input type="email" class="form-control" id="contact_email" name="contact_email"
+                                               placeholder="We may contact you for updates">
+                                    </div>
+                                    
+                                    <div class="col-md-4 mb-3">
+                                        <label for="contact_phone" class="form-label">Phone Number</label>
+                                        <input type="tel" class="form-control" id="contact_phone" name="contact_phone">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Submit Buttons -->
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                                <button type="reset" class="btn btn-secondary me-md-2">
+                                    <i class="fas fa-undo"></i> Clear Form
+                                </button>
+                                <button type="submit" class="btn btn-success btn-lg">
+                                    <i class="fas fa-paper-plane"></i> Submit Issue Report
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+                <!-- Guidelines Card -->
+                <div class="card mt-4">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0"><i class="fas fa-info-circle"></i> Reporting Guidelines</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="mb-0">
+                            <li>Fields marked with <span class="text-danger">*</span> are required</li>
+                            <li>Be as specific as possible with your location</li>
+                            <li>Photos help authorities understand and prioritize issues</li>
+                            <li>For emergencies, call 112 instead of using this form</li>
+                            <li>You will receive a confirmation email if you provide contact information</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Emergency Notice -->
+                <div class="alert alert-danger mt-4">
+                    <h5><i class="fas fa-exclamation-triangle"></i> Emergency Notice</h5>
+                    <p class="mb-1">For immediate emergencies or safety hazards, do not use this form.</p>
+                    <p class="mb-0">
+                        <strong>Call emergency services: 112</strong><br>
+                       
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p>&copy; 2025 CivicTrack. Building stronger communities together.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="#" class="text-light me-3">About</a>
+                    <a href="#" class="text-light me-3">Help</a>
+                    <a href="#" class="text-light">Contact</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/dompurify@3.0.6/dist/purify.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
