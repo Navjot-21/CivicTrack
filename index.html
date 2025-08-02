@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CivicTrack - Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="hero-section">
+        <div class="container">
+            <div class="row min-vh-100 align-items-center">
+                <div class="col-lg-6">
+                    <div class="hero-content">
+                        <h1 class="display-4 fw-bold text-white mb-4 animate-fade-in">
+                            <i class="fas fa-city"></i> CivicTrack
+                        </h1>
+                        <p class="lead mb-4 text-white">Building stronger communities through citizen engagement and transparent issue tracking.</p>
+                        <div class="features-list">
+                            <div class="feature-item">
+                                <i class="fas fa-map-marker-alt text-success"></i>
+                                <span>Report local issues with precise location tracking</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-eye text-info"></i>
+                                <span>Track progress and receive real-time updates</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-users text-warning"></i>
+                                <span>Connect with your community and local officials</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <div class="login-card">
+                        <div class="card shadow-lg border-0">
+                            <div class="card-body p-5">
+                                <h2 class="card-title text-center mb-4">
+                                    <i class="fas fa-sign-in-alt text-primary"></i> Welcome Back
+                                </h2>
+                                
+                                <form id="loginForm" class="login-form">
+                                    <div class="mb-3">
+                                        <label for="username" class="form-label">
+                                            <i class="fas fa-user"></i> Username
+                                        </label>
+                                        <input type="text" class="form-control form-control-lg" 
+                                               id="username" name="username" 
+                                               placeholder="Enter your username" required>
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <label for="role" class="form-label">
+                                            <i class="fas fa-user-tag"></i> Role
+                                        </label>
+                                        <select class="form-select form-select-lg" id="role" name="role" required>
+                                            <option value="">Select your role...</option>
+                                            <option value="User">User - Report and track issues</option>
+                                            <option value="Admin">Admin - Manage community reports</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <button type="submit" class="btn btn-primary btn-lg w-100 pulse-btn">
+                                        <i class="fas fa-sign-in-alt"></i> Login to CivicTrack
+                                    </button>
+                                </form>
+                                
+                                <div class="text-center mt-4">
+                                    <small class="text-muted">
+                                        Demo credentials: Any username with User or Admin role
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="info-section py-5 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center mb-5">
+                    <h2 class="display-6 fw-bold text-primary">How CivicTrack Works</h2>
+                    <p class="lead">Simple steps to make your community better</p>
+                </div>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="info-card text-center">
+                        <div class="info-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <h4>1. Report Issues</h4>
+                        <p>Spot a problem in your community? Report it quickly with photos and location details.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="info-card text-center">
+                        <div class="info-icon">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <h4>2. Track Progress</h4>
+                        <p>Watch as local authorities acknowledge, investigate, and work to resolve reported issues.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="info-card text-center">
+                        <div class="info-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h4>3. See Results</h4>
+                        <p>Get notified when issues are resolved and see the positive impact on your community.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p>&copy; 2024 CivicTrack. Building stronger communities together.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="#" class="text-light me-3">About</a>
+                    <a href="#" class="text-light me-3">Help</a>
+                    <a href="#" class="text-light">Contact</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/dompurify@3.0.6/dist/purify.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
