@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CivicTrack - Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="home.html" onclick="window.location.href='home.html'; return false;">
+                <i class="fas fa-city"></i> CivicTrack
+            </a>
+           
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+           
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="home.html" onclick="window.location.href='home.html'; return false;">
+                            <i class="fas fa-home"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="report.html">
+                            <i class="fas fa-plus-circle"></i> Report Issue
+                        </a>
+                    </li>
+                </ul>
+               
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-user"></i> <span id="currentUser">User</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-user-edit"></i> Profile</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="index.html"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container-fluid py-4">
+        <div class="row">
+            <!-- Sidebar Filters -->
+            <div class="col-lg-3">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0"><i class="fas fa-filter"></i> Filter Issues</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="filterForm">
+                            <div class="mb-3">
+                                <label class="form-label">Status</label>
+                                <select name="status" class="form-select" id="statusFilter">
+                                    <option value="all">All Statuses</option>
+                                    <option value="Reported">Reported</option>
+                                    <option value="In Progress">In Progress</option>
+                                    <option value="Under Review">Under Review</option>
+                                    <option value="Resolved">Resolved</option>
+                                </select>
+                            </div>
+                           
+                            <div class="mb-3">
+                                <label class="form-label">Category</label>
+                                <select name="category" class="form-select" id="categoryFilter">
+                                    <option value="all">All Categories</option>
+                                    <option value="Roads & Transportation">Roads & Transportation</option>
+                                    <option value="Street Lighting">Street Lighting</option>
+                                    <option value="Water & Drainage">Water & Drainage</option>
+                                    <option value="Cleanliness & Waste">Cleanliness & Waste</option>
+                                    <option value="Parks & Recreation">Parks & Recreation</option>
+                                    <option value="Public Safety">Public Safety</option>
+                                    <option value="Utilities">Utilities</option>
+                                </select>
+                            </div>
+                           
+                            <div class="mb-3">
+                                <label class="form-label">Search</label>
+                                <input type="text" name="search" class="form-control" id="searchInput"
+                                       placeholder="Search by keyword">
+                            </div>
+                           
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-search"></i> Apply Filters
+                                </button>
+                                <button type="reset" class="btn btn-outline-secondary">
+                                    <i class="fas fa-times"></i> Clear Filters
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+               
+                <!-- Quick Actions -->
+                <div class="card shadow-sm">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0"><i class="fas fa-bolt"></i> Quick Actions</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-grid gap-2">
+                            <a href="report.html" class="btn btn-success">
+                                <i class="fas fa-plus"></i> Report New Issue
+                            </a>
+                            <button class="btn btn-outline-primary" onclick="getCurrentLocation()">
+                                <i class="fas fa-location-arrow"></i> Use My Location
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+            <!-- Main Content -->
+            <div class="col-lg-9">
+                <!-- Location Info -->
+                <div class="alert alert-info mb-4">
+                    <h5><i class="fas fa-map-marker-alt"></i> Your Location</h5>
+                    <p class="mb-0">Downtown Springfield (GPS enabled) - Showing issues within 10km</p>
+                </div>
+               
+                <!-- Map View -->
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0"><i class="fas fa-map"></i> Map View</h5>
+                    </div>
+                    <div class="card-body p-0">
+                        <div id="map" style="height: 400px;"></div>
+                    </div>
+                </div>
+               
+                <!-- Issues Grid -->
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4><i class="fas fa-list"></i> Local Issues (<span id="issueCount">6</span>)</h4>
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-outline-primary active" data-view="grid">
+                            <i class="fas fa-th"></i> Grid
+                        </button>
+                        <button type="button" class="btn btn-outline-primary" data-view="list">
+                            <i class="fas fa-list"></i> List
+                        </button>
+                    </div>
+                </div>
+               
+                <div class="row" id="issues-container">
+                    <!-- Sample issues will be loaded here by JavaScript -->
+                </div>
+               
+                <div class="text-center py-5" id="no-issues" style="display: none;">
+                    <div class="empty-state">
+                        <i class="fas fa-search fa-3x text-muted mb-3"></i>
+                        <h4>No Issues Found</h4>
+                        <p class="text-muted">No reports match your current filters. Try adjusting your search criteria or be the first to report an issue in your area!</p>
+                        <a href="report.html" class="btn btn-success">
+                            <i class="fas fa-plus"></i> Report an Issue
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="bg-dark text-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p>&copy; 2025 CivicTrack. Building stronger communities together.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="#" class="text-light me-3">About</a>
+                    <a href="#" class="text-light me-3">Help</a>
+                    <a href="#" class="text-light">Contact</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="https://unpkg.com/dompurify@3.0.6/dist/purify.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
