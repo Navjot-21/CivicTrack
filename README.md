@@ -33,18 +33,7 @@
 ---
 
 ## 📁 Project Structure
-```plaintext
-CivicTrack/
-├── index.html # Landing page with role selection
-├── home.html # User dashboard with filtering and map view
-├── report.html # New issue submission form
-├── issue_detail.html # Full issue details with admin controls
-├── admin_dashboard.html # Admin tools and data overview
-├── styles.css # Custom styling and UI effects
-├── script.js # Application logic and interactivity
-└── README.md # Project documentation
-```
-
+![alt text](image.png)
 ---
 
 ## 🚀 Getting Started
@@ -65,7 +54,7 @@ Then navigate to: [https://github.com/Navjot-21/CivicTrack.git]
 ## 📖 Usage Guide
 ### 🔐 Login (index.html)
 - Choose a role: User or Admin
-- No password needed (demo mode enabled)
+
 
 ### 🧭 User Dashboard (home.html)
 - View all issues
@@ -128,3 +117,4 @@ Then navigate to: [https://github.com/Navjot-21/CivicTrack.git]
 - **GitHub**: [https://github.com/Navjot-21/CivicTrack.git]
 
 > CivicTrack: Empowering Communities Through Civic Innovation
+
